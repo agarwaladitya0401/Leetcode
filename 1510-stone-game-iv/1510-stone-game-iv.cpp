@@ -1,13 +1,9 @@
-
-
-class Solution {
-public:
     
 int dp[100001];
 
 vector<int>v;
 
-void pre(){
+bool pre = [](){
 
     dp[1] = 1;
     
@@ -41,12 +37,15 @@ void pre(){
         }
 
     }
-        return;
-    }
+        return true;
+    }();
+
+class Solution {
+public:
     
     bool winnerSquareGame(int n) {
         
-        pre();
+        // pre();
         
         if(dp[n]==1){
             return 1;
