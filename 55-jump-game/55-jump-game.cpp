@@ -23,8 +23,18 @@ public:
     }
     bool canJump(vector<int>& nums) {
         
-        memset(dp,-1,sizeof(dp));
+        // memset(dp,-1,sizeof(dp));
         int n = nums.size();
-        return fun(nums, 0, n);
+        // return fun(nums, 0, n);
+        
+        int rch = 0;
+        int curr = 0;
+        
+        while(curr<=rch){
+            rch = max(rch, curr+nums[curr]);
+            curr+=1;
+            if(rch>=n-1) return true;
+        }
+        return false;
     }
 };
