@@ -1,25 +1,62 @@
 class Solution {
 public:
-    int f(int i,int j,string &p, string &s,vector<vector<int>>&dp){
-        if(i<0 and j<0)return true;
-        if(i<0 and j>=0)return false;
-        if(j<0 and i>=0){
-            for(int ii=0;ii<=i;ii++){
-                if(p[ii]!='*')return false;
+    
+    bool fun(int i, int j, int n, int m, string &s, string &p, vector<vector<int>>&dp){
+        
+        if(i==n and j==m){
+            return 1;
+        }
+        
+        if(i>n or j>m){
+            return 0;
+        }
+        
+        if(dp[i][j]!=-1){
+            return dp[i][j];
+        }
+        
+        if(i==n and j<m){
+            
+            for(int jj=j;jj<m;jj++){
+                if(p[jj]!='*'){
+                    return 0;
+                }
             }
-            return true;
+            
+            return 1;
         }
-        if(dp[i][j]!=-1)return dp[i][j];
-        if(p[i]==s[j] or p[i]=='?')return dp[i][j]=f(i-1,j-1,p,s,dp);
-        if(p[i]=='*'){
-            return dp[i][j]=(f(i-1,j,p,s,dp) | f(i,j-1,p,s,dp));
+        
+        if(p[j]=='?'){
+            dp[i][j] = fun(i+1,j+1,n,m,s,p,dp);
         }
-        return dp[i][j]=false;
+        else if(p[j]=='*'){
+            dp[i][j] = (fun(i+1,j,n,m,s,p,dp) || fun(i,j+1,n,m,s,p,dp));
+        }
+        else{
+            if(s[i]==p[j]){
+                dp[i][j] = fun(i+1,j+1,n,m,s,p,dp);
+            }
+            else{
+                dp[i][j] = 0;       
+            }
+        }
+        
+        // cout<<"i,j:"<<i<<" "<<j<<" "<<dp[i][j]<<endl;
+        return dp[i][j];
     }
+    
     bool isMatch(string s, string p) {
-        int n=p.size();
-        int m=s.size();
-        vector<vector<int>>dp(n,vector<int>(m,-1));
-        return f(n-1,m-1,p,s,dp);
+        int n = s.size();
+        int m = p.size();
+        
+        vector<vector<int>>dp(n+1,vector<int>(m+1,-1));
+        
+        // for(int i=0;i<n+1;i++){
+        //     for(int j=0;j<m+1;j++){
+        //         dp[i][j] = -1;
+        //     }
+        // }
+                              
+        return fun(0,0,n,m,s,p,dp);
     }
 };
