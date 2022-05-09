@@ -2,7 +2,7 @@ class Solution {
 public:
     vector<string> ans;
     
-    void fun(int id, string d, int n, string tmp, vector<char>*v){
+    void fun(int id, string d, int n, string tmp, vector<char>v[10]){
         
         if(id==n){
             if(tmp!="") ans.push_back(tmp);
