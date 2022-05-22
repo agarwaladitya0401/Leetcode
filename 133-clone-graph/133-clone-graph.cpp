@@ -3,12 +3,9 @@
 
 
 class Solution {
-    
-private:
-    
-    vector<Node*> all_nodes;
+
 public:
-    
+    vector<Node*> all_nodes;
     Solution(){
      all_nodes = vector<Node*>(101,NULL);
     }
